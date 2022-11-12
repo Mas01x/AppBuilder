@@ -1,4 +1,5 @@
 import Moduele
-app = Moduele.app("Hi")
-app.title("Hello World")
-app.launch()
+if __name__ == "__main__":
+    app = Moduele.app("Hi")
+    app.position(100,100)
+    app.launch()
