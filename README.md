@@ -7,5 +7,9 @@ A code to make a window may look like this:
 ```python
 import AppBuilder
 app = Moduele.app("Hello World")
+app.text("The Best App!")
+app.pack()
+app.seperator()
+app.pack()
 app.launch()
 ```
