@@ -1,12 +1,14 @@
 import tkinter as tk
-
+from tkinter import font
+from tkinter import ttk as ttk
 class app():
     def __init__(self,title):
         """Init the window with a title"""
         win = tk.Tk()
         win.title(title)
         self.win = win
-
+        #Set the font to the defult Tkinter font for the family and size
+        self.__activeFont = (font.nametofont("TkDefaultFont").actual('family'),font.nametofont("TkDefaultFont").actual('size'))
     def __IntellisenceFix(self):
         #Make it easer to code
         win = tk.Tk()
@@ -32,9 +34,22 @@ class app():
     def position(self,x,y):
         """Set the windows position to x and y"""
         self.geometry(x,y,self.win.winfo_width(),self.win.winfo_height())
+    def font(self,fontFamily,size):
+        self.__activeFont = (fontFamily,size)
+    def text(self,tex,**kargs):
+        self.__activeElement = tk.Label(self.win,text=tex,font=self.__activeFont,**kargs)
 
-    def text(self,tex,**args):
-        tk.Label(self,text=tex,**args)
+    def seperator(self,dir="h",**kargs):
+        if (dir == "h"):
+            dir = "horizontal"
+        elif (dir == "v"):
+            dir = "vertical"
+        else:
+            dir = "horizontal"
+        self.__activeElement = ttk.Separator(self.win,orient=dir)
+
+    def pack(self,**kargs):
+        self.__activeElement.pack(**kargs)
 
     def launch(self):
         """Launch the window must be called to create window"""
