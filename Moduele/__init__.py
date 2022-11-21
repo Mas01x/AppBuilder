@@ -9,6 +9,7 @@ class app():
         self.win = win
         #Set the font to the defult Tkinter font for the family and size
         self.__activeFont = (font.nametofont("TkDefaultFont").actual('family'),font.nametofont("TkDefaultFont").actual('size'))
+        self.__activeVarableListener = []
     def __IntellisenceFix(self):
         #Make it easer to code
         win = tk.Tk()
@@ -47,10 +48,20 @@ class app():
         else:
             dir = "horizontal"
         self.__activeElement = ttk.Separator(self.win,orient=dir)
-
+    def checkBox(self,label,function,**kargs):
+        l = len(self.__activeVarableListener)
+        self.__activeVarableListener.append({
+            'var': tk.IntVar(),
+            'command':function
+        })
+        self.__activeElement = tk.Checkbutton(self.win,text=label, onvalue=1, offvalue=0,variable= self.__activeVarableListener[l]['var'],command=lambda:self.handleCommand(l),**kargs)
+    def textInput(self,**kargs):
+        self.__activeElement = tk.Entry(self.win,**kargs)
     def pack(self,**kargs):
         self.__activeElement.pack(**kargs)
 
+    def handleCommand(self,v):
+        self.__activeVarableListener[v]['command'](self.__activeVarableListener[v]['var'].get())
     def launch(self):
         """Launch the window must be called to create window"""
         self.win.mainloop()
